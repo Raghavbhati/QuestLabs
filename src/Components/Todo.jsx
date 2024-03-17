@@ -4,42 +4,33 @@ import { DragDropContext } from "react-beautiful-dnd";
 import Addnew from "./Addnew";
 
 export const Todo = () => {
+
   const [todo, setTodo] = useState([
-    {
-      id: 1,
-      title: "Task First",
-    },
-    {
-      id: 2,
-      title: "Task Second",
-    },
+    {id: 1, title: "Task First",},
+    {id: 2,title: "Task Second",},
   ]);
+
   const [inProgress, setInProgress] = useState([
-    {
-      id: 3,
-      title: "Task 3",
-    },
-    {
-      id: 4,
-      title: "Task 4",
-    },
+    {id: 3,title: "Task 3",},
+    {id: 4,title: "Task 4",},
   ]);
+
   const [inReview, setInReview] = useState([
-    {
-      id: 5,
-      title: "Task 5",
-    },
-    {
-      id: 6,
-      title: "Task 6",
-    },
+    {id: 5,title: "Task 5",},
+    {id: 6,title: "Task 6",},
   ]);
+
   const [completed, setCompleted] = useState([]);
 
   const handleDragEnd = (result) => {
     const { destination, source, draggableId } = result;
+    console.log(destination, source, draggableId)
+    
+    if (!destination) {
+      return;
+    }
     if (!destination || source.droppableId === destination.droppableId) return;
-
+  
     deletePreviousState(source.droppableId, draggableId);
     const task = findItemById(draggableId, [
       ...todo,
