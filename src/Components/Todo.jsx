@@ -1,12 +1,9 @@
 import { useState } from "react";
 import TodoColumn from "./TodoColumn";
 import { DragDropContext } from "react-beautiful-dnd";
-
+import Addnew from "./Addnew";
 
 export const Todo = () => {
-  const ID = 10;
-  const [newtodo, setNewtod] = useState([]);
-
   const [todo, setTodo] = useState([
     {
       id: 1,
@@ -17,31 +14,39 @@ export const Todo = () => {
       title: "Task Second",
     },
   ]);
-  const [inProgress, setInProgress] = useState([{
-    id: 3,
-    title: "Task 3",
-  },
-  {
-    id: 4,
-    title: "Task 4",
-  },]);
-  const [inReview, setInReview] = useState([{
-    id: 5,
-    title: "Task 5",
-  },
-  {
-    id: 6,
-    title: "Task 6",
-  },]);
+  const [inProgress, setInProgress] = useState([
+    {
+      id: 3,
+      title: "Task 3",
+    },
+    {
+      id: 4,
+      title: "Task 4",
+    },
+  ]);
+  const [inReview, setInReview] = useState([
+    {
+      id: 5,
+      title: "Task 5",
+    },
+    {
+      id: 6,
+      title: "Task 6",
+    },
+  ]);
   const [completed, setCompleted] = useState([]);
-
 
   const handleDragEnd = (result) => {
     const { destination, source, draggableId } = result;
     if (!destination || source.droppableId === destination.droppableId) return;
 
     deletePreviousState(source.droppableId, draggableId);
-    const task = findItemById(draggableId, [...todo, ...inProgress, ...inReview, ...completed]);
+    const task = findItemById(draggableId, [
+      ...todo,
+      ...inProgress,
+      ...inReview,
+      ...completed,
+    ]);
     setNewState(destination.droppableId, task);
   };
 
@@ -50,8 +55,8 @@ export const Todo = () => {
   }
 
   function removeItemById(id, array) {
-     return array.filter((item) => item.id != id);
-  } 
+    return array.filter((item) => item.id != id);
+  }
 
   function deletePreviousState(sourceDroppableId, taskId) {
     switch (sourceDroppableId) {
@@ -92,16 +97,24 @@ export const Todo = () => {
     }
   }
 
-
   return (
-    <div className="w-full h-full bg-primary">
-      <div className="w-10/12 m-auto py-10">
+    <div className="w-full h-height bg-primary">
+      <div className="w-10/12 m-auto py-10 max-lg:w-11/12">
         <DragDropContext onDragEnd={handleDragEnd}>
-          <div className="grid grid-cols-4 gap-3">
-            <TodoColumn title={"To Do"} tasks={todo} id={"1"} />
-            <TodoColumn title={"In Progress"} tasks={inProgress} id={"2"} />
-            <TodoColumn title={"Review"} tasks={inReview} id={"3"} />
-            <TodoColumn title={"Done"} tasks={completed} id={"4"} />
+          <div className="grid grid-cols-4 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1">
+            <div className="bg-gray-300 rounded-lg py-5 px-3">
+              <TodoColumn title={"To Do"} tasks={todo} id={"1"} />
+              <Addnew addnewTodo={setTodo} data={todo} />
+            </div>
+            <div className="bg-gray-300 rounded-lg py-5 px-3">
+              <TodoColumn title={"In Progress"} tasks={inProgress} id={"2"} />
+            </div>
+            <div className="bg-gray-300 rounded-lg py-5 px-3">
+              <TodoColumn title={"Review"} tasks={inReview} id={"3"} />
+            </div>
+            <div className="bg-gray-300 rounded-lg py-5 px-3">
+              <TodoColumn title={"Done"} tasks={completed} id={"4"} />
+            </div>
           </div>
         </DragDropContext>
       </div>

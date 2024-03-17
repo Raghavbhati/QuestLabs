@@ -4,8 +4,8 @@ import Taskcard from "./Taskcard";
 const TodoColumn = (props) => {
   const { title, tasks, id } = props;
   return (
-    <div className="bg-gray-300 rounded-lg py-5 px-3">
-      <h1>{title}</h1>
+    <div>
+      <h1 className="font-semibold text-xl pb-2 text-dark">{title}</h1>
       <div>
         <Droppable droppableId={id}>
           {(provided, snapshot) => (
