@@ -19,9 +19,9 @@ const TodoColumn = (props) => {
               }}
             >
                 <div className="flex flex-col gap-2">
-                {tasks.map((task, id) => (
-                <Taskcard key={id} index={id} task={task} />
-              ))}
+                {tasks.map((task, index) => (
+                   <Taskcard key={index} task={task} index={index} />
+                ))}
               {provided.placeholder}
                 </div>
             </div>

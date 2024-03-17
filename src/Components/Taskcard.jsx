@@ -1,9 +1,8 @@
 import { Draggable } from "react-beautiful-dnd";
 
-const Taskcard = ({ task, id, index, classes, isComment, commentNo }) => {
-  console.log(task);
+const Taskcard = ({ task,index, classes, isComment, commentNo }) => {
   return (
-      <Draggable draggableId={id} index={id}>
+      <Draggable draggableId={String(task.id)} index={index}>
         {(provided, snapshot) => (
           <div
           className="bg-white py-4 px-3 rounded-lg"
@@ -11,7 +10,7 @@ const Taskcard = ({ task, id, index, classes, isComment, commentNo }) => {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >
-            <div key={id}>
+            <div key={index}>
               <h1>{task.title}</h1>
             </div>
           </div>
